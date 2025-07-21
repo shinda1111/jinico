@@ -46,6 +46,7 @@ export default function VideoPlayer() {
       setCurrentTime(videoRef.current.currentTime);
       setDuration(videoRef.current.duration);
       setEndTime(videoRef.current.duration);
+      videoRef.current.volume = 0.0;
     }
     if (notUpscaleVideoRef.current) {
       if(pause==true)
@@ -59,6 +60,7 @@ export default function VideoPlayer() {
       setCurrentTime(notUpscaleVideoRef.current.currentTime);
       setDuration(notUpscaleVideoRef.current.duration);
       setEndTime(notUpscaleVideoRef.current.duration);
+      notUpscaleVideoRef.current.volume = 0.0;
     }
     setPause(pause);
   };
