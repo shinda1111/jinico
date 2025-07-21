@@ -181,6 +181,9 @@ export default function VideoPlayer() {
             <div className="flex justify-start gap-4">
                 <ReplayButton {...childProps}></ReplayButton>
                 {
+                  <div className="bg-white/70 text-black px-4 py-2 rounded-xl shadow-lg hover:bg-white">
+                    左：アップスケーリング有り 右：アップスケーリング無し
+                  </div>
                   //<UpscalingButton {...childProps}></UpscalingButton>
                 }
             </div>
