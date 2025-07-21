@@ -94,7 +94,6 @@ export async function render_video(
 
     const samplerLoc = gl.getUniformLocation(program, 'u_video');
     gl.uniform1i(samplerLoc, 0);
-    await video.play();
     render(gl,video,canvas,videoTexture);
             console.log("luige",video,canvas);
 }
