@@ -1,107 +1,186 @@
 "use client";
-import { SetStateAction, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {render_video} from './gl_module/gl_module';
 import ReplayButton from './replay_button';
+import { SdfPlayerProps } from './sdf_player_props';
+import UpscalingButton from './upscaling_button';
 import TimeSlider from './time_slider';
 import PlayCanvas from './play_canvas';
-import {SdfPlayerProps} from './sdf_player_props';
-import TimeDisplay from './time_display';
 
 export default function VideoPlayer() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [pause, setPause] = useState<boolean>(false);
+  const notUpscaleVideoRef = useRef<HTMLVideoElement | null>(null);
+  const [pause, setPause] = useState<boolean>(true);
   const [upscaling, setUpscaling] = useState<boolean>(true);
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
-  const [volume, setVolume] = useState<number>(0.0);
-  const [startTime, setStartTime] = useState<number>(0.0);
+  const [startTime, setStartTime] = useState<number>(0);
   const [endTime, setEndTime] = useState<number>(duration);
-  
+
+  const handleSeek=(currentTime:number)=>
+  {
+    console.log("mario handle seek");
+    if (videoRef.current) {
+      videoRef.current.currentTime = currentTime;
+    }
+    if (notUpscaleVideoRef.current) {
+      notUpscaleVideoRef.current.currentTime = currentTime;
+    }
+    setCurrentTime(currentTime);
+  };
+
   const handlePause=(pause:boolean)=>
   {
-    if (videoRef.current) 
-    {
-      if(!pause)
+    if (videoRef.current) {
+      if(pause==true)
       {
-        videoRef.current.play();
+        console.log("pause");
+        videoRef.current.pause();
       }
       else
       {
-        videoRef.current.pause();
+        console.log("play");
+        videoRef.current.play();
       }
-      setPause(pause);
+      setCurrentTime(videoRef.current.currentTime);
+      setDuration(videoRef.current.duration);
+      setEndTime(videoRef.current.duration);
     }
-  }
+    if (notUpscaleVideoRef.current) {
+      if(pause==true)
+      {
+        notUpscaleVideoRef.current.pause();
+      }
+      else
+      {
+        notUpscaleVideoRef.current.play();
+      }
+      setCurrentTime(notUpscaleVideoRef.current.currentTime);
+      setDuration(notUpscaleVideoRef.current.duration);
+      setEndTime(notUpscaleVideoRef.current.duration);
+    }
+    setPause(pause);
+  };
 
-  const handleSeek = (currentTime:number) => {
+  const handleUpscaling=(upscaling:boolean)=>
+  {
+    setUpscaling(upscaling);
     if (videoRef.current) {
-      videoRef.current.currentTime = currentTime;
-      setCurrentTime(currentTime);
+      videoRef.current.currentTime = 0.0;
+    }
+    if (notUpscaleVideoRef.current) {
+      notUpscaleVideoRef.current.currentTime = 0.0;
+    }
+    setPause(true);
+    setCurrentTime(0.0);
+  };
+
+  const handleLoadedMetadata = () => 
+  {
+    const video = videoRef.current;
+    console.log("handleLoadedMetadata");
+    if (video)
+    {
+      setCurrentTime(video.currentTime);
+      setDuration(video.duration);
+      setEndTime(video.duration);
+    }
+  };
+  const handleLoadedMetadataByNot = () => 
+  {
+    const notUpscaleVideo = notUpscaleVideoRef.current;
+    if (notUpscaleVideo)
+    {
+      setCurrentTime(notUpscaleVideo.currentTime);
+      setDuration(notUpscaleVideo.duration);
+      setEndTime(notUpscaleVideo.duration);
     }
   };
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    const notUpscaleVideo = notUpscaleVideoRef.current;
+    if (notUpscaleVideo)
+    {
+      const handleTimeUpdateByNot = () => setCurrentTime(notUpscaleVideo.currentTime);
+      const handleLoadedMetadataByNot = () => {setDuration(notUpscaleVideo.duration);setEndTime(notUpscaleVideo.duration);}
+      notUpscaleVideo.addEventListener('timeupdate', handleTimeUpdateByNot);
+      notUpscaleVideo.addEventListener('loadedmetadata', handleLoadedMetadataByNot);
+      return () => {
+        notUpscaleVideo.removeEventListener('timeupdate', handleTimeUpdateByNot);
+        notUpscaleVideo.removeEventListener('loadedmetadata', handleLoadedMetadataByNot);
+      };
+    }
+    if (video)
+    {
+      const handleTimeUpdate = () => setCurrentTime(video.currentTime);
+      const handleLoadedMetadata = () => {setDuration(video.duration);setEndTime(duration)}
+      video.addEventListener('timeupdate', handleTimeUpdate);
+      video.addEventListener('loadedmetadata', handleLoadedMetadata);  
+      return () => {
+        video.removeEventListener('timeupdate', handleTimeUpdate);
+        video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      };
+    }
+    return;
+  }, [upscaling]);
 
-    const updateTime = () => setCurrentTime(video.currentTime);
-    const updateDuration = () => setDuration(video.duration);
-    updateTime();
-    updateDuration();
-    setCurrentTime(video.currentTime);
-    setEndTime(video.duration);
-    video.addEventListener("timeupdate", updateTime);
-    video.addEventListener("loadedmetadata", updateDuration);
-
-    return () => {
-      video.removeEventListener("timeupdate", updateTime);
-      video.removeEventListener("loadedmetadata", updateDuration);
-    };
-  }, []);
   const childProps:SdfPlayerProps=
   {
-    videoRef,
-    currentTime,
-    startTime: 0,
-    endTime: duration,
     pause,
-    handlePause,
+    currentTime,
     duration,
-    setDuration,
-    upscaling,
-    setUpscaling,
-    volume,
-    setVolume,
-    width: 960,
-    height: 540,
+    startTime,
+    endTime,
+    handlePause,
     handleSeek,
+    videoRef,
+    upscaling,
+    handleUpscaling
   }
   return (
     <div className="relative w-[960px] h-[520px]">
-      <video
-        ref={videoRef}
-        width={640}
-        height={360}
-        autoPlay
-        loop
-        muted
-        playsInline
-        src="/videos/output_640x360.webm"
-        className="hidden"
-      />
       {
-        <PlayCanvas  {...childProps}></PlayCanvas>
+        !upscaling &&
+        <video
+          ref={notUpscaleVideoRef}
+          width={960}
+          height={540}
+          autoPlay={false}
+          loop
+          muted={false}
+          onLoadedMetadata={handleLoadedMetadataByNot}
+          playsInline
+          src="/videos/input_640x360.mp4"
+        />
       }
-      
-      {/* UI Overlay */}
-      <div className="absolute bottom-4 left-4 right-4 flex flex-col gap-2 pointer-events-auto">
-        <TimeSlider  {...childProps}></TimeSlider>
-        <div className="flex justify-start gap-4">
-            <ReplayButton {...childProps}></ReplayButton>
-            <TimeDisplay {...childProps}></TimeDisplay>
+      {
+        upscaling &&
+        <div>
+          <video
+            ref={videoRef}
+            width={640}
+            height={360}
+            autoPlay={false}
+            loop
+            muted={false}
+            playsInline
+            onLoadedMetadata={handleLoadedMetadata}
+            src="/videos/output_640x360.webm"
+            className="hidden"
+          />
+          <PlayCanvas {...childProps}></PlayCanvas>
         </div>
+      }
+      {/* UI Overlay */}
+        <div className="absolute bottom-4 left-4 right-4 flex flex-col gap-2 pointer-events-auto">
+            <TimeSlider  {...childProps}></TimeSlider>
+            <div className="flex justify-start gap-4">
+                <ReplayButton {...childProps}></ReplayButton>
+                <UpscalingButton {...childProps}></UpscalingButton>
+            </div>
+            </div>
       </div>
-    </div>
   );
 }

@@ -35,12 +35,13 @@ function render(
     videoTexture:WebGLTexture
 ) {
     function actually_render() {
+        gl.enable(gl.BLEND);
+        gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
         if (video.readyState >= video.HAVE_CURRENT_DATA) {
             gl.activeTexture(gl.TEXTURE0);
             gl.bindTexture(gl.TEXTURE_2D, videoTexture);
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
         }
-
         gl.viewport(0, 0, canvas.width, canvas.height);
         gl.clearColor(0, 0, 0, 1);
         gl.clear(gl.COLOR_BUFFER_BIT);
@@ -81,7 +82,7 @@ export async function render_video(
         new Uint16Array([0, 1, 2, 2, 3, 0]),
         gl.STATIC_DRAW
     );
-
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
     const videoTexture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, videoTexture);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -92,7 +93,7 @@ export async function render_video(
     const samplerLoc = gl.getUniformLocation(program, 'u_video');
     gl.uniform1i(samplerLoc, 0);
 
-    await video.play();
+    //await video.play();
     render(gl,video,canvas,videoTexture);
             console.log("luige",video,canvas);
 }

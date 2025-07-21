@@ -6,9 +6,64 @@ uniform sampler2D u_video;
 in vec2 v_texcoord;
 out vec4 outColor;
 
+<<<<<<< HEAD
 vec4 sdf_three(vec2 uv) {
     
     vec2 adjust_size = 1.0 / vec2(640.0,480.0);
+=======
+float rand(vec2 uv) {
+    return fract(sin(dot(uv, vec2(12.9898,78.233))) * 43758.5453);
+}
+
+float gradient_noise(vec2 uv) {
+    vec2 i = floor(uv);
+    vec2 f = fract(uv);
+    
+    // 4点のランダム値
+    float a = rand(i);
+    float b = rand(i + vec2(1.0, 0.0));
+    float c = rand(i + vec2(0.0, 1.0));
+    float d = rand(i + vec2(1.0, 1.0));
+
+    // 補間
+    vec2 u = f * f * (3.0 - 2.0 * f);
+
+    return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
+
+float fbm(vec2 uv) {
+    float value = 0.0;
+    float amplitude = 0.5;
+    float frequency = 1.0;
+
+    for (int i = 0; i < 5; ++i) {
+        value += amplitude * gradient_noise(uv * frequency);
+        uv *= 2.0;
+        amplitude *= 0.5;
+    }
+
+    return value;
+}
+
+vec3 rgb2hsv(vec3 c) {
+    vec4 K = vec4(0.0, -1.0/3.0, 2.0/3.0, -1.0);
+    vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
+    vec4 q = mix(vec4(p.xyw, c.r), vec4(c.r, p.yzx), step(p.x, c.r));
+
+    float d = q.x - min(q.w, q.y);
+    float e = 1e-10;
+    return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+}
+
+vec3 hsv2rgb(vec3 c) {
+    vec3 rgb = clamp(abs(mod(c.x * 6.0 + vec3(0.0, 4.0, 2.0), 6.0) - 3.0) - 1.0, 0.0, 1.0);
+    return c.z * mix(vec3(1.0), rgb, c.y);
+}
+
+vec4 sdf_three(vec2 uv) {
+    
+    vec2 adjust_size = 1.0 / vec2(320.0,240.0);
+>>>>>>> d08a2e9 (first commit)
     vec2 uvs[5];
     vec4 colors[5];
     float sdfs[5];

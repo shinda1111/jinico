@@ -1,18 +1,20 @@
-import { SdfPlayerProps } from "./sdf_player_props";
+"use client";
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import {render_video} from './gl_module/gl_module';
+import ReplayButton from './replay_button';
+import { SdfPlayerProps } from './sdf_player_props';
 
 export default function TimeSlider(props:SdfPlayerProps) {
-    console.log(props.endTime,props.startTime,props.currentTime);
-  return (     
-    <div>
-        <input
-            value={props.currentTime}
-            type="range"
-            min={props.startTime}
-            max={props.endTime}
-            step="0.01"
-            className="w-full accent-blue-500"
-            onChange={(e)=>props.handleSeek(parseFloat(e.target.value))}
-        />
-    </div>
+  console.log("props.endTime ",props.endTime);
+  return (
+    <input
+        type="range"
+        value={props.currentTime}
+        min={props.startTime}
+        max={props.endTime}
+        step={"0.1"}
+        onChange={(event: ChangeEvent<HTMLInputElement>)=>{props.handleSeek(parseFloat(event.target.value))}}
+        className="w-full accent-blue-500"
+    />
   );
 }

@@ -1,19 +1,14 @@
 import { RefObject } from "react";
 
 export type SdfPlayerProps = {
-  videoRef:  RefObject<HTMLVideoElement | null>;
+  duration:number;
+  currentTime:number;
   pause: boolean;
-  startTime: number;
-  endTime: number;
-  duration: number;
-  currentTime: number;
-  setDuration: React.Dispatch<React.SetStateAction<number>>;
-  upscaling:boolean;
-  setUpscaling: React.Dispatch<React.SetStateAction<boolean>>;
-  volume: number;
-  setVolume: React.Dispatch<React.SetStateAction<number>>;
-  width:number;
-  height:number;
-  handleSeek:(currentTime:number) =>void;
   handlePause:(pause:boolean)=>void;
+  upscaling: boolean;
+  handleUpscaling:(upscaling:boolean)=>void;
+  startTime: number;
+  endTime:number;
+  handleSeek:(currentTime:number)=>void;
+  videoRef:RefObject<HTMLVideoElement | null>;
 };
