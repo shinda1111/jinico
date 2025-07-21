@@ -17,7 +17,7 @@ export default function PlayCanvas(props:SdfPlayerProps) {
         if (!gl) return;
 
         canvas.width = 1280;
-        canvas.height = 720;
+        canvas.height = 360;
 
         (async () => 
             {    
@@ -34,9 +34,9 @@ export default function PlayCanvas(props:SdfPlayerProps) {
     return (
         <canvas
             ref={canvasRef}
-            width={960}
-            height={540}
-            className="absolute top-0 left-0 w-full h-full"
+            width={1280}
+            height={360}
+            className=""
         />
   );
 }
