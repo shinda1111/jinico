@@ -37,6 +37,7 @@ function render(
     function actually_render() {
         gl.enable(gl.BLEND);
         gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+
         if (video.readyState >= video.HAVE_CURRENT_DATA) {
             gl.activeTexture(gl.TEXTURE0);
             gl.bindTexture(gl.TEXTURE_2D, videoTexture);
@@ -83,6 +84,7 @@ export async function render_video(
         gl.STATIC_DRAW
     );
     gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+
     const videoTexture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, videoTexture);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -92,8 +94,7 @@ export async function render_video(
 
     const samplerLoc = gl.getUniformLocation(program, 'u_video');
     gl.uniform1i(samplerLoc, 0);
-
-    //await video.play();
+    await video.play();
     render(gl,video,canvas,videoTexture);
             console.log("luige",video,canvas);
 }

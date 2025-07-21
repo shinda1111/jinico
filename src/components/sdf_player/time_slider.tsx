@@ -5,7 +5,6 @@ import ReplayButton from './replay_button';
 import { SdfPlayerProps } from './sdf_player_props';
 
 export default function TimeSlider(props:SdfPlayerProps) {
-  console.log("props.endTime ",props.endTime);
   return (
     <input
         type="range"
