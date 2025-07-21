@@ -180,7 +180,9 @@ export default function VideoPlayer() {
             <TimeSlider  {...childProps}></TimeSlider>
             <div className="flex justify-start gap-4">
                 <ReplayButton {...childProps}></ReplayButton>
-                <UpscalingButton {...childProps}></UpscalingButton>
+                {
+                  //<UpscalingButton {...childProps}></UpscalingButton>
+                }
             </div>
             </div>
       </div>

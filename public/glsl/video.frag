@@ -33,6 +33,10 @@ vec4 sdf_three(vec2 uv) {
         }
     }
     vec3 color=colors[4].rgb;
+    if(uv.x>=1.0)
+    {
+        return vec4(color.rgb,1.0);
+    }
     float deviation=values[4]-(values[0]+values[1]+values[2]+values[3])*0.25;
     float mix_color=0.5;
     if(abs(deviation*2.0)>=0.1)
@@ -63,5 +67,7 @@ vec4 sdf_three(vec2 uv) {
 }
 
 void main() {
-    outColor = sdf_three(v_texcoord);
+    vec2 uv=v_texcoord;
+    uv.x*=2.0;
+    outColor = sdf_three(uv);
 }
