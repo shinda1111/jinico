@@ -18,6 +18,7 @@ export default function Home() {
         <div className="flex justify-center">
           如何でしたでしょうか？<br/>
           このように非常に軽量なアップスケーリング技術を用いることで約半分の解像度でありながらHDとほぼ同じ体験が可能です<br/>
+          この技術を用いることで個人や小さな企業でもサーバーの代金を節約しながら動画サイトの構築が可能となります<br/>
           もし技術的な更なる詳細やサポート、応援を行いたい方は以下のNoteのコメント欄にて感想をお聞かせください<br/>
         </div>
         <a className="flex justify-center text-blue-500" href="https://note.com/murairo/n/nefeb8770a3ce">感想欄のリンク</a>
