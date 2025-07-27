@@ -13,7 +13,7 @@ export default function TimeSlider(props:SdfPlayerProps) {
         max={props.endTime}
         step={"0.1"}
         onChange={(event: ChangeEvent<HTMLInputElement>)=>{props.handleSeek(parseFloat(event.target.value))}}
-        className="w-full accent-blue-500"
+        className="w-3/5 accent-blue-500"
     />
   );
 }

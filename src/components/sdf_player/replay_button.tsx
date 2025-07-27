@@ -2,7 +2,7 @@ import { SdfPlayerProps } from "./sdf_player_props";
 
 export default function ReplayButton(props:SdfPlayerProps) {
   return (     
-    <div className="flex justify-start">
+    <div>
         {
           !props.pause &&
           <button onClick={()=>{props.handlePause(true)}} className="bg-white/70 text-black px-4 py-2 rounded-xl shadow-lg hover:bg-white">

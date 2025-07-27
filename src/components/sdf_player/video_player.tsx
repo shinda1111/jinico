@@ -142,8 +142,9 @@ export default function VideoPlayer() {
     handleUpscaling
   }
   return (
-    <div className="relative w-[960px] h-[520px]">
+    <div>
       {
+        /*
         !upscaling &&
         <video
           ref={notUpscaleVideoRef}
@@ -156,6 +157,7 @@ export default function VideoPlayer() {
           playsInline
           src="/videos/input_640x360.mp4"
         />
+        */
       }
       {
         upscaling &&
@@ -164,7 +166,7 @@ export default function VideoPlayer() {
             ref={videoRef}
             width={640}
             height={360}
-            autoPlay={false}
+            autoPlay={true}
             loop
             muted={false}
             playsInline
@@ -176,18 +178,43 @@ export default function VideoPlayer() {
         </div>
       }
       {/* UI Overlay */}
-        <div className="absolute bottom-4 left-4 right-4 flex flex-col gap-2 pointer-events-auto">
+      {
+        /*
+        <video
+          ref={notUpscaleVideoRef}
+          width={1280}
+          height={720}
+          autoPlay={true}
+          loop
+          muted={false}
+          onLoadedMetadata={handleLoadedMetadataByNot}
+          playsInline
+          src="/videos/sample_1280x720.mp4"
+        />
+        */
+      }
+      {
+        
+        <div className="flex justify-center">
             <TimeSlider  {...childProps}></TimeSlider>
-            <div className="flex justify-start gap-4">
-                <ReplayButton {...childProps}></ReplayButton>
-                {
-                  <div className="bg-white/70 text-black px-4 py-2 rounded-xl shadow-lg hover:bg-white">
-                    左：アップスケーリング有り 右：アップスケーリング無し
-                  </div>
-                  //<UpscalingButton {...childProps}></UpscalingButton>
-                }
-            </div>
-            </div>
+        </div>
+      }
+      {
+        <div className="flex justify-center">
+          <ReplayButton {...childProps}></ReplayButton>
+        </div>
+      }
+      {
+          <div className="flex justify-center">
+              {
+                <div className="bg-white/70 text-black px-4 py-2 rounded-xl shadow-lg hover:bg-white">
+                  左：1280x720のアップスケーリング<br/> 
+                  右：640x360の元動画
+                </div>
+                //<UpscalingButton {...childProps}></UpscalingButton>
+              }
+          </div>
+      }
       </div>
   );
 }
