@@ -23,6 +23,23 @@ export default function Home() {
         </div>
         <a className="flex justify-center text-blue-500" href="https://note.com/murairo/n/nefeb8770a3ce">感想欄のリンク</a>
         <br/>
+        <div className="flex justify-center text-xl">何故アップスケーリングが節約になるのか？</div>
+         <div className="flex justify-center text-xl">
+          <Image
+            src="/image/presentation_one.jpg"  // 画像のパス
+            alt=""  // 代替テキスト（必須）
+            width={1280}  // 幅（必須）
+            height={720}  // 高さ（必須）
+          />
+        </div>
+         <div className="flex justify-center text-xl">
+          <Image
+            src="/image/presentation_two.jpg"  // 画像のパス
+            alt=""  // 代替テキスト（必須）
+            width={1280}  // 幅（必須）
+            height={720}  // 高さ（必須）
+          />
+         </div>
         <div className="flex justify-center text-xl">従来のアップスケーリングとの比較</div>
         <div className="flex justify-center">
           <div className="grid grid-cols-3">
