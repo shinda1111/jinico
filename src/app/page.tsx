@@ -40,6 +40,53 @@ export default function Home() {
             height={720}  // 高さ（必須）
           />
          </div>
+        <div className="flex justify-center text-xl">具体的には従来の1/3の費用が動画サイトが運営できる！</div>
+        <div className="flex justify-center">AWSの場合</div>
+          <div className="flex justify-center">
+            <div className="grid grid-cols-3 border border-gray-300 text-sm">
+            <div className="bg-gray-100 font-bold border px-4 py-2"></div>
+            <div className="bg-gray-100 font-bold border px-4 py-2">通常</div>
+            <div className="bg-gray-100 font-bold border px-4 py-2">Yosakiを用いた場合</div>
+            <div className="border px-4 py-2">一つの動画の容量(約10分のHD動画)</div>
+            <div className="border px-4 py-2">130MB</div>
+            <div className="border px-4 py-2">40MB</div>
+            <div className="border px-4 py-2">動画のファイル数</div>
+            <div className="border px-4 py-2">1000ファイル</div>
+            <div className="border px-4 py-2">1000ファイル</div>
+            <div className="border px-4 py-2">動画再生数(全合計)</div>
+            <div className="border px-4 py-2">100万再生</div>
+            <div className="border px-4 py-2">100万再生</div>
+            <div className="border px-4 py-2">Cloud Frontの転送量(全て日本の回線で見られたと仮定）</div>
+            <div className="border px-4 py-2">130TiB</div>
+            <div className="border px-4 py-2">40TiB</div>
+            <div className="border px-4 py-2">HTTPリクエスト</div>
+            <div className="border px-4 py-2">100万回</div>
+            <div className="border px-4 py-2">100万回</div>
+          </div>
+        </div>
+        <div className="flex justify-center">GCPの場合</div>
+          <div className="flex justify-center">
+            <div className="grid grid-cols-3 border border-gray-300 text-sm">
+            <div className="bg-gray-100 font-bold border px-4 py-2">項目</div>
+            <div className="bg-gray-100 font-bold border px-4 py-2">通常</div>
+            <div className="bg-gray-100 font-bold border px-4 py-2">Yosakiを用いた場合</div>
+            <div className="border px-4 py-2">一つの動画の容量(約10分のHD動画)</div>
+            <div className="border px-4 py-2">130MB</div>
+            <div className="border px-4 py-2">40MB</div>
+            <div className="border px-4 py-2">ファイル数</div>
+            <div className="border px-4 py-2">1000ファイル</div>
+            <div className="border px-4 py-2">1000ファイル</div>
+            <div className="border px-4 py-2">動画再生数(全合計)</div>
+            <div className="border px-4 py-2">100万再生</div>
+            <div className="border px-4 py-2">100万再生</div>
+            <div className="border px-4 py-2">Cloud CDNの転送量(全て日本の回線で見られたと仮定）</div>
+            <div className="border px-4 py-2">130TiB</div>
+            <div className="border px-4 py-2">40TiB</div>
+            <div className="border px-4 py-2">Cloud CDNのHTTPリクエスト</div>
+            <div className="border px-4 py-2">100万回</div>
+            <div className="border px-4 py-2">100万回</div>
+          </div>
+        </div>
         <div className="flex justify-center text-xl">従来のアップスケーリングとの比較</div>
         <div className="flex justify-center">
           <div className="grid grid-cols-3">
