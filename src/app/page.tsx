@@ -40,8 +40,34 @@ export default function Home() {
             height={720}  // 高さ（必須）
           />
          </div>
-        <div className="flex justify-center text-xl">具体的には従来の1/3の費用が動画サイトが運営できる！</div>
-        <div className="flex justify-center">AWSの場合</div>
+        <div className="flex justify-center text-xl">具体的なグラフを書くと・・・</div>
+         <div className="flex justify-center text-xl">
+          <Image
+            src="/image/graph.jpg"  // 画像のパス
+            alt=""  // 代替テキスト（必須）
+            width={1280}  // 幅（必須）
+            height={720}  // 高さ（必須）
+          />
+         </div>
+        <div className="flex justify-center text-xl"></div>
+         <div className="flex justify-center text-xl">
+          <Image
+            src="/image/worries.jpg"  // 画像のパス
+            alt=""  // 代替テキスト（必須）
+            width={1280}  // 幅（必須）
+            height={720}  // 高さ（必須）
+          />
+         </div>
+        <div className="flex justify-center text-xl"></div>
+         <div className="flex justify-center text-xl">
+          <Image
+            src="/image/solution.jpg"  // 画像のパス
+            alt=""  // 代替テキスト（必須）
+            width={1280}  // 幅（必須）
+            height={720}  // 高さ（必須）
+          />
+        </div>
+        <div className="flex justify-center">AWSの場合の料金内訳</div>
           <div className="flex justify-center">
             <div className="grid grid-cols-3 border border-gray-300 text-sm">
             <div className="bg-gray-100 font-bold border px-4 py-2">項目</div>
@@ -91,7 +117,7 @@ export default function Home() {
             <div className="border px-4 py-2"></div>
           </div>
         </div>
-        <div className="flex justify-center">GCPの場合</div>
+        <div className="flex justify-center">GCPの場合の料金内訳</div>
           <div className="flex justify-center">
             <div className="grid grid-cols-3 border border-gray-300 text-sm">
             <div className="bg-gray-100 font-bold border px-4 py-2">項目</div>
